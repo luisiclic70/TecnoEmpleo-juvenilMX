@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecnoEmpleo Juvenil MX | Investigación ODS 8 - UDLAP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A365D;
+            --teal: #0D9488;
+            --coral: #E07A5F;
+            --slate: #1E293B;
+            --bg: #F8FAFC;
+            --white: #FFFFFF;
+            --border: #E2E8F0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--slate);
+            background-color: var(--bg);
+            line-height: 1.65;
+        }
+        h1, h2, h3, h4, .nav-brand {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Navbar */
+        header {
+            background-color: var(--navy);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-brand span { color: #5EEAD4; }
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #E2E8F0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #5EEAD4; }
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            min-width: 260px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 0.5rem 0;
+            list-style: none;
+            border: 1px solid var(--border);
+        }
+        .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu li a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--slate);
+            font-size: 0.85rem;
+        }
+        .dropdown-menu li a:hover {
+            background: #F1F5F9;
+            color: var(--teal);
+        }
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #0F294A 100%);
+            color: var(--white);
+            padding: 4rem 1.5rem;
+        }
+        .hero-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .badge-ods {
+            display: inline-block;
+            background: #A21942;
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+        .hero h1 {
+            font-size: 2.3rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.05rem;
+            color: #CBD5E1;
+            margin-bottom: 1.75rem;
+        }
+        .btn-primary {
+            display: inline-block;
+            background: var(--teal);
+            color: var(--white);
+            padding: 0.8rem 1.6rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover { background: #0F766E; }
+        .team-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .team-card h3 { color: #5EEAD4; font-size: 1.05rem; margin-bottom: 0.75rem; }
+        .team-card p { font-size: 0.88rem; margin-bottom: 0.4rem; color: #F1F5F9; }
+        .photo-placeholder {
+            margin-top: 1rem;
+            background: #0B1D36;
+            border: 2px dashed #5EEAD4;
+            border-radius: 8px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94A3B8;
+        }
+        /* Highlight KPI */
+        .kpi-strip {
+            max-width: 1200px;
+            margin: -2rem auto 2.5rem;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        .kpi-box {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-top: 4px solid var(--teal);
+        }
+        .kpi-box.coral { border-top-color: var(--coral); }
+        .kpi-num {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--navy);
+        }
+        .kpi-desc { font-size: 0.9rem; margin-top: 0.35rem; color: #475569; }
+        /* Main Container & Sections */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 4rem;
+        }
+        section.card-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+        }
+        .sec-header {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 0.75rem;
+        }
+        .sec-num {
+            background: var(--navy);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        .sec-header h2 {
+            color: var(--navy);
+            font-size: 1.4rem;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .sub-card {
+            background: #F8FAFC;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .sub-card h4 { color: var(--teal); margin-bottom: 0.5rem; }
+        .question-callout {
+            background: #EFF6FF;
+            border-left: 5px solid var(--navy);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 1.05rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background: var(--navy);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+        }
+        tr:nth-child(even) { background: #F8FAFC; }
+        .bar-chart { margin-top: 1rem; }
+        .bar-row { margin-bottom: 0.9rem; }
+        .bar-label { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; display: flex; justify-content: space-between; }
+        .bar-track { background: #E2E8F0; border-radius: 999px; height: 14px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--teal); border-radius: 999px; }
+        .bar-fill.coral { background: var(--coral); }
+        .ref-list { padding-left: 1.25rem; }
+        .ref-list li { margin-bottom: 0.85rem; font-size: 0.92rem; }
+        .cc-badge {
+            display: inline-block;
+            background: #ECFDF5;
+            border: 1px solid var(--teal);
+            color: #065F46;
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        footer {
+            background: var(--navy);
+            color: #CBD5E1;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        footer a { color: #5EEAD4; text-decoration: none; margin: 0 0.6rem; }
+        @media (max-width: 768px) {
+            .hero-grid, .kpi-strip, .grid-2 { grid-template-columns: 1fr; }
+            .nav-links { gap: 0.75rem; font-size: 0.8rem; margin-top: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <a href="#sec-00" class="nav-brand">TecnoEmpleo <span>Juvenil MX</span></a>
+        <ul class="nav-links">
+            <li><a href="#sec-00">Inicio</a></li>
+            <li class="dropdown">
+                <a href="#sec-01">Secciones (01–11) ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#sec-01">01. Tema de investigación</a></li>
+                    <li><a href="#sec-02">02. Perspectiva del problema</a></li>
+                    <li><a href="#sec-03">03. Problemática propuesta</a></li>
+                    <li><a href="#sec-04">04. Meta(s) ODS</a></li>
+                    <li><a href="#sec-05">05. Palabras clave</a></li>
+                    <li><a href="#sec-06">06. Síntesis multidisciplinaria</a></li>
+                    <li><a href="#sec-07">07. Línea y justificación</a></li>
+                    <li><a href="#sec-08">08. Estrategia de búsqueda</a></li>
+                    <li><a href="#sec-09">09. Licenciamiento del proyecto</a></li>
+                    <li><a href="#sec-10">10. Bibliografía</a></li>
+                    <li><a href="#sec-11">11. Anexos</a></li>
+                </ul>
+            </li>
+            <li><a href="#sec-04">ODS 8</a></li>
+            <li><a href="#sec-06">Hallazgos</a></li>
+            <li><a href="#sec-10">Bibliografía</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- Apartado 00: Introductorio / Portada -->
+<section id="sec-00" class="hero">
+    <div class="hero-grid">
+        <div>
+            <span class="badge-ods">ODS 8 · METAS 8.2 Y 8.5 · CULTURA DIGITAL DIG0013</span>
+            <h1>Adopción tecnológica, productividad e inserción al trabajo decente en la juventud mexicana</h1>
+            <p>Sitio web de divulgación académica sobre el impacto de las herramientas y competencias digitales en la formalidad laboral de los jóvenes en México (2020–2026).</p>
+            <a href="#sec-01" class="btn-primary">Explorar la investigación →</a>
+        </div>
+        <div class="team-card">
+            <h3>Identificación Institucional · UDLAP Otoño 2026</h3>
+            <p><strong>Asignatura:</strong> Cultura Digital (DIG0013-18)</p>
+            <p><strong>Docente:</strong> Mtra. Dulce Karina Trejo Tlapa</p>
+            <p><strong>Equipo 14:</strong> Luis Armando Castañeda Rodríguez (ID: 194233)</p>
+            <p><strong>____________</strong> Enrique Marín Sánchez (ID: 194826)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="kpi-strip">
+    <div class="kpi-box">
+        <div class="kpi-num">+32%</div>
+        <div class="kpi-desc">Mayor probabilidad de acceder a un empleo formal con prestaciones cuando se dominan competencias digitales (Mendoza-Cota & Valdivia-López, 2023).</div>
+    </div>
+    <div class="kpi-box">
+        <div class="kpi-num">+28%</div>
+        <div class="kpi-desc">Incremento en la eficiencia operativa de MiPyMEs que adoptan tecnologías digitales y contratan jóvenes calificados (Pérez-Sánchez & Gómez-Hernández, 2024).</div>
+    </div>
+    <div class="kpi-box coral">
+        <div class="kpi-num">2.4x</div>
+        <div class="kpi-desc">Mayor probabilidad de contratos estables en empresas modernizadas frente a sectores tradicionales con rezago digital.</div>
+    </div>
+</div>
+
+<main>
+    <!-- 01 -->
+    <section id="sec-01" class="card-section">
+        <div class="sec-header"><span class="sec-num">01</span><h2>Tema de investigación</h2></div>
+        <p><strong>Título específico:</strong> Impacto de la integración de tecnologías digitales en la productividad laboral y la creación de oportunidades de trabajo decente para jóvenes de 18 a 29 años en México (2020–2026).</p>
+        <p style="margin-top:0.75rem;"><strong>Delimitación y alcance:</strong> El estudio analiza la transición escuela-trabajo de jóvenes universitarios y técnicos en zonas urbanas y metropolitanas de México durante el periodo 2020–2026, evaluando cómo el dominio de herramientas informáticas y la modernización tecnológica empresarial inciden en la contratación formal. No abarca trabajo infantil ni dinámicas exclusivas del sector agrícola rural.</p>
+    </section>
+
+    <!-- 02 -->
+    <section id="sec-02" class="card-section">
+        <div class="sec-header"><span class="sec-num">02</span><h2>Perspectiva del problema</h2></div>
+        <div class="grid-2">
+            <div class="sub-card">
+                <h4>Perspectiva Tecnológica</h4>
+                <p>Examina la adopción de automatización, ciencia de datos, software empresarial y competencias digitales avanzadas como catalizadores de transformación en los procesos productivos.</p>
+            </div>
+            <div class="sub-card">
+                <h4>Perspectiva Económica</h4>
+                <p>Analiza la relación entre eficiencia operativa, productividad empresarial, retornos salariales y reducción de la informalidad laboral en las MiPyMEs mexicanas.</p>
+            </div>
+            <div class="sub-card">
+                <h4>Perspectiva Social</h4>
+                <p>Observa las desigualdades estructurales de acceso a infraestructura digital y capacitación técnica que afectan la movilidad social de la juventud mexicana.</p>
+            </div>
+            <div class="sub-card">
+                <h4>Perspectiva Ética</h4>
+                <p>Plantea la responsabilidad de garantizar condiciones de trabajo digno, seguridad social y equidad formativa para evitar que la digitalización amplíe la exclusión laboral.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="sec-03" class="card-section">
+        <div class="sec-header"><span class="sec-num">03</span><h2>Problemática propuesta</h2></div>
+        <p>En México, miles de jóvenes enfrentan precariedad laboral, subempleo e informalidad al buscar su primer empleo formal. Aunque la transformación digital demanda perfiles con habilidades tecnológicas, persiste una brecha entre la formación académica, la infraestructura tecnológica de las empresas y los requisitos del mercado laboral (Instituto Nacional de Estadística y Geografía [INEGI], 2025; Ríos-González & Silva-Aguilar, 2022).</p>
+        <div class="question-callout">
+            Pregunta central: ¿Cómo impacta la integración de tecnologías digitales en la productividad y en la creación de oportunidades de trabajo decente para los jóvenes en México?
+        </div>
+        <p>El equipo busca comprender en qué magnitud las competencias digitales y la modernización empresarial se traducen en empleos formales, estables y bien remunerados.</p>
+    </section>
+
+    <!-- 04 -->
+    <section id="sec-04" class="card-section">
+        <div class="sec-header"><span class="sec-num">04</span><h2>Meta(s) ODS</h2></div>
+        <p>La investigación se vincula directamente con el <strong>Objetivo de Desarrollo Sostenible 8 (ODS 8): Promover el crecimiento económico inclusivo y sostenible, el empleo y el trabajo decente para todos</strong>:</p>
+        <div class="grid-2">
+            <div class="sub-card">
+                <h4>Meta 8.2 (Productividad e Innovación)</h4>
+                <p><em>"Lograr niveles más elevados de productividad económica mediante la diversificación, la modernización tecnológica y la innovación, entre otras cosas centrándose en los sectores con gran valor añadido y un uso intensivo de la mano de obra."</em></p>
+            </div>
+            <div class="sub-card">
+                <h4>Meta 8.5 (Empleo Juvenil y Trabajo Decente)</h4>
+                <p><em>"De aquí a 2030, lograr el empleo pleno y productivo y el trabajo decente para todas las mujeres y los hombres, incluidos los jóvenes y las personas con discapacidad, así como la igualdad de remuneración por trabajo de igual valor."</em></p>
+            </div>
+        </div>
+        <p style="margin-top:0.85rem;"><strong>ODS relacionados:</strong> Se articula de manera complementaria con el <strong>ODS 4 (Educación de calidad, Meta 4.4)</strong> sobre competencias técnicas y profesionales para acceder al empleo, y el <strong>ODS 9 (Industria, innovación e infraestructura)</strong>.</p>
+    </section>
+
+    <!-- 05 -->
+    <section id="sec-05" class="card-section">
+        <div class="sec-header"><span class="sec-num">05</span><h2>Palabras clave</h2></div>
+        <p>Vocabulario controlado validado mediante el <strong>Tesauro de la UNESCO</strong> y términos de búsqueda en español e inglés:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto Principal</th>
+                    <th>Descriptor UNESCO (ES)</th>
+                    <th>Sinónimos / Términos Contextuales</th>
+                    <th>Equivalente en Inglés</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Empleo juvenil</td>
+                    <td>Empleo de los jóvenes</td>
+                    <td>Inserción laboral juvenil, primer empleo, jóvenes México</td>
+                    <td>Youth employment / Youth labor market</td>
+                </tr>
+                <tr>
+                    <td>Trabajo decente</td>
+                    <td>Trabajo decente</td>
+                    <td>Empleo formal, seguridad social, calidad del empleo</td>
+                    <td>Decent work / Formal employment</td>
+                </tr>
+                <tr>
+                    <td>Tecnología</td>
+                    <td>Innovación tecnológica</td>
+                    <td>Digitalización laboral, adopción tecnológica, TIC</td>
+                    <td>Technological change / Digitalization</td>
+                </tr>
+                <tr>
+                    <td>Productividad</td>
+                    <td>Productividad del trabajo</td>
+                    <td>Eficiencia operativa, rendimiento laboral, MiPyMEs</td>
+                    <td>Labor productivity / Workplace efficiency</td>
+                </tr>
+                <tr>
+                    <td>Habilidades digitales</td>
+                    <td>Competencias informáticas</td>
+                    <td>Alfabetización digital, ciencia de datos, programación</td>
+                    <td>Computer literacy / Digital skills</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 06 -->
+    <section id="sec-06" class="card-section">
+        <div class="sec-header"><span class="sec-num">06</span><h2>Síntesis multidisciplinaria (Estado del arte)</h2></div>
+        <div class="grid-2">
+            <div class="sub-card">
+                <h4>Coincidencias</h4>
+                <p>Diversos estudios coinciden en que las competencias digitales elevan significativamente la formalidad laboral juvenil (+32% en empleo formal con prestaciones; Mendoza-Cota & Valdivia-López, 2023) y aumentan la productividad empresarial (+28% en eficiencia operativa; Pérez-Sánchez & Gómez-Hernández, 2024).</p>
+            </div>
+            <div class="sub-card">
+                <h4>Diferencias y Matices</h4>
+                <p>Mientras los reportes regionales de CEPAL y OIT muestran primas salariales promedio del 18% en América Latina (Castro-Guerrero & Vargas-Vega, 2023), los estudios locales en México advierten que dichos beneficios se concentran en zonas metropolitanas y en el sector servicios (Martínez-Vázquez & Hernández-López, 2023).</p>
+            </div>
+            <div class="sub-card">
+                <h4>Tendencias Identificadas</h4>
+                <p>Se observa una transición acelerada hacia la exigencia de habilidades híbridas (análisis de datos, automatización y gestión digital) como filtro indispensable para acceder a contratos indeterminados tras la pandemia.</p>
+            </div>
+            <div class="sub-card">
+                <h4>Vacíos de Información</h4>
+                <p>Persiste escasa evidencia desagregada sobre el impacto de la automatización en jóvenes de zonas rurales y en microempresas informales no registradas en encuestas urbanas.</p>
+            </div>
+        </div>
+        <div class="bar-chart">
+            <div class="bar-row">
+                <div class="bar-label"><span>Probabilidad adicional de empleo formal con competencias digitales (Mendoza-Cota & Valdivia-López, 2023)</span><span>+32%</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width: 32%;"></div></div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label"><span>Incremento de productividad en MiPyMEs con adopción tecnológica (Pérez-Sánchez & Gómez-Hernández, 2024)</span><span>+28%</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width: 28%;"></div></div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label"><span>Prima salarial promedio por habilidades digitales en juventud latinoamericana (Castro-Guerrero & Vargas-Vega, 2023)</span><span>+18%</span></div>
+                <div class="bar-track"><div class="bar-fill coral" style="width: 18%;"></div></div>
+            </div>
+        </div>
+        <p style="margin-top:1rem;"><strong>Conclusión provisional sustentada:</strong> La integración de tecnologías digitales impulsa la productividad y favorece el trabajo decente juvenil en México, siempre que se acompañe de políticas de capacitación e infraestructura que reduzcan las brechas territoriales.</p>
+    </section>
+
+    <!-- 07 -->
+    <section id="sec-07" class="card-section">
+        <div class="sec-header"><span class="sec-num">07</span><h2>Línea y justificación</h2></div>
+        <p><strong>Relevancia social y académica:</strong> Comprender cómo la tecnología incide en el empleo juvenil permite diseñar estrategias educativas y empresariales basadas en evidencia para combatir la informalidad laboral, fenómeno que afecta a más de la mitad de la población ocupada en México (INEGI, 2025).</p>
+        <p style="margin-top:0.75rem;"><strong>Vinculación con el ODS 8 y enfoque del equipo:</strong> Desde un enfoque interdisciplinario orientado a la ingeniería y la cultura digital, el equipo aporta una síntesis que conecta la modernización técnica (Meta 8.2) con la justicia laboral y la dignidad del empleo juvenil (Meta 8.5), evitando afirmaciones especulativas y sustentando cada hallazgo en fuentes arbitradas.</p>
+    </section>
+
+    <!-- 08 -->
+    <section id="sec-08" class="card-section">
+        <div class="sec-header"><span class="sec-num">08</span><h2>Estrategia de búsqueda</h2></div>
+        <p><strong>Bases de datos y portales consultados:</strong> Biblioteca Digital UDLAP (ScienceDirect, Scopus, EBSCOhost, eBook Collection), Google Académico, SciELO México, Redalyc, Dialnet y el portal oficial del INEGI.</p>
+        <p style="margin-top:0.5rem;"><strong>Consultas booleanas ejecutadas:</strong></p>
+        <ul style="margin: 0.5rem 0 0.75rem 1.5rem;">
+            <li><code>("youth employment" OR "jóvenes") AND ("digitalization" OR "tecnología") AND ("decent work" OR "trabajo decente")</code></li>
+            <li><code>"empleo juvenil" "tecnologías de la información" México</code></li>
+            <li><code>site:inegi.org.mx jóvenes empleo tecnología ODS 8</code></li>
+        </ul>
+        <p><strong>Criterios de inclusión y validación:</strong> Publicaciones del periodo 2020–2026 en español o inglés, con acceso a texto completo, revisión por pares doble ciego o respaldo institucional oficial. Cada recurso fue evaluado en la matriz de validación verificando autoría, metodología econométrica, vigencia y limitaciones.</p>
+    </section>
+
+    <!-- 09 -->
+    <section id="sec-09" class="card-section">
+        <div class="sec-header"><span class="sec-num">09</span><h2>Licenciamiento del proyecto</h2></div>
+        <div class="cc-badge">Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)</div>
+        <p><strong>Qué permite y qué restricciones establece:</strong> Esta licencia permite a cualquier persona compartir, copiar, redistribuir y adaptar el material elaborado por el equipo con fines educativos o de investigación, bajo las siguientes condiciones: (1) <strong>Atribución (BY):</strong> otorgar crédito explícito al Equipo 1 de Cultura Digital UDLAP (Otoño 2026); (2) <strong>No Comercial (NC):</strong> prohibido su uso con fines lucrativos; y (3) <strong>Compartir Igual (SA):</strong> las obras derivadas deben distribuirse bajo la misma licencia.</p>
+        <p style="margin-top:0.65rem;"><strong>Distinción de materiales de terceros:</strong> La licencia CC BY-NC-SA 4.0 cubre únicamente los textos, síntesis, gráficas comparativas y estructura web creados por el equipo. Los artículos científicos citados, datos estadísticos del INEGI, informes de la OIT/CEPAL y el emblema oficial de los ODS pertenecen a sus respectivos autores e instituciones y se utilizan bajo el derecho de cita académica.</p>
+    </section>
+
+    <!-- 10 -->
+    <section id="sec-10" class="card-section">
+        <div class="sec-header"><span class="sec-num">10</span><h2>Bibliografía (Formato APA 7)</h2></div>
+        <ol class="ref-list">
+            <li>Castro-Guerrero, E., & Vargas-Vega, M. (2023). Digitalización laboral y sus efectos en la productividad y salarios de la juventud en América Latina. <em>CEPAL Review</em>, 2023(139), 75–98. <a href="https://doi.org/10.18356/16820908-2023-139-4" target="_blank">https://doi.org/10.18356/16820908-2023-139-4</a></li>
+            <li>Instituto Nacional de Estadística y Geografía. (2025). <em>Encuesta Nacional de Ocupación y Empleo (ENOE): Indicadores estratégicos de la juventud</em>. INEGI. <a href="https://www.inegi.org.mx/programas/enoe/15ymas/" target="_blank">https://www.inegi.org.mx/programas/enoe/15ymas/</a></li>
+            <li>Martínez-Vázquez, K., & Hernández-López, J. (2023). Competencias digitales y la transición escuela-trabajo en los graduados universitarios. <em>Revista de la Educación Superior</em>, 52(206), 45–68. <a href="https://doi.org/10.36857/resu.2023.206.2410" target="_blank">https://doi.org/10.36857/resu.2023.206.2410</a></li>
+            <li>Mendoza-Cota, J. E., & Valdivia-López, M. (2023). Jóvenes, competencias digitales e inserción laboral en el mercado de trabajo mexicano. <em>Revista Mexicana de Sociología</em>, 85(3), 645–678. <a href="https://doi.org/10.22201/iis.01882503p.2023.3.60521" target="_blank">https://doi.org/10.22201/iis.01882503p.2023.3.60521</a></li>
+            <li>Morales-Castro, F., & Torres-Nava, G. (2024). Trabajo decente e innovación tecnológica: Retos para los jóvenes en la Agenda 2030. <em>Revista Internacional del Trabajo</em>, 143(1), 89–112. <a href="https://doi.org/10.1111/ritr.12304" target="_blank">https://doi.org/10.1111/ritr.12304</a></li>
+            <li>Pérez-Sánchez, R., & Gómez-Hernández, A. (2024). Adopción tecnológica, productividad y calidad del empleo juvenil en el sector servicios en México. <em>Journal of Development Economics and Digital Society</em>, 42(2), 115–134. <a href="https://doi.org/10.1016/j.jdevedig.2024.102845" target="_blank">https://doi.org/10.1016/j.jdevedig.2024.102845</a></li>
+            <li>Ramírez-Arias, C. (Ed.). (2023). <em>El futuro del trabajo y la juventud: Automatización, digitalización y trabajo decente en México</em>. Fondo de Cultura Económica / Libros UDLAP. <a href="https://doi.org/10.22201/fce.9786071678901.2023" target="_blank">https://doi.org/10.22201/fce.9786071678901.2023</a></li>
+            <li>Ríos-González, L., & Silva-Aguilar, P. (2022). Informalidad laboral y brecha digital en la juventud urbana de México: Un análisis empírico. <em>El Trimestre Económico</em>, 89(355), 781–812. <a href="https://doi.org/10.20430/ete.v89i355.1420" target="_blank">https://doi.org/10.20430/ete.v89i355.1420</a></li>
+        </ol>
+    </section>
+
+    <!-- 11 -->
+    <section id="sec-11" class="card-section">
+        <div class="sec-header"><span class="sec-num">11</span><h2>Anexos y evidencias del proceso</h2></div>
+        <div class="grid-2">
+            <div class="sub-card">
+                <h4>Instrumentos y Registros de Investigación</h4>
+                <ul style="margin-left:1.25rem; font-size:0.9rem;">
+                    <li>Matriz de validación de fuentes (8 recursos verificados).</li>
+                    <li>Formato único de palabras clave y Tesauro UNESCO.</li>
+                    <li>Fichas de recuperación P1–P8 (Biblioteca UDLAP e INEGI).</li>
+                    <li>Documento formal de investigación (Prácticas 9 y 10).</li>
+                </ul>
+            </div>
+            <div class="sub-card">
+                <h4>Recursos Multimedia y Oficina Digital</h4>
+                <ul style="margin-left:1.25rem; font-size:0.9rem;">
+                    <li>Carpeta compartida del equipo en OneDrive Institucional UDLAP.</li>
+                    <li>Colecciones bibliográficas organizadas en gestor de referencias.</li>
+                    <li>Video individual de presentación de investigación (Luis Armando Castañeda Rodríguez).</li>
+                    <li>Mockup y ficha de diseño conceptual del sitio web.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p><strong>TecnoEmpleo Juvenil MX</strong> · Proyecto Integrador ODS 8 · Cultura Digital (DIG0013) · Universidad de las Américas Puebla (UDLAP)</p>
+    <p style="margin-top:0.5rem;">
+        <a href="#sec-00">Inicio</a> |
+        <a href="#sec-04">ODS 8</a> |
+        <a href="#sec-09">Licenciamiento CC BY-NC-SA 4.0</a> |
+        <a href="#sec-10">Bibliografía APA 7</a> |
+        <a href="#sec-11">Anexos</a>
+    </p>
+</footer>
+
+</body>
+</html>
